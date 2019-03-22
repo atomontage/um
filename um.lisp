@@ -151,12 +151,12 @@ in `fetch-decode-execute'."
   "Create a dispatch table based on the operators we have defined with `defop'."
   `(case ,opc
      ,@(loop
-         :with values = '()
+         :with values
          :for op :being :the :hash-keys :in *operators*
-         :using (hash-value v)
+           :using (hash-value v)
          :for code = (second v)
          :unless (= op 13)
-         :do (push (list op code) values)
+           :do (push (list op code) values)
          :finally (return (sort values #'< :key #'first)))
      (otherwise (error "Unknown opcode: ~A" ,opc))))
 
