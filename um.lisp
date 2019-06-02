@@ -20,11 +20,11 @@
 ;;;; This is free and unencumbered software released into the public domain.
 ;;;; xristos@sdf.org
 
-(defpackage :um
-  (:use :cl)
-  (:export :start))
+(defpackage #:um
+  (:use #:cl)
+  (:export #:start))
 
-(in-package :um)
+(in-package #:um)
 
 
 ;;;
