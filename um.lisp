@@ -26,7 +26,11 @@
 
 (in-package :um)
 
+
+;;;
 ;;; Globals
+;;;
+
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   (defvar *operators* (make-hash-table)
@@ -35,11 +39,19 @@
 (deftype u8  () '(unsigned-byte 8))
 (deftype u32 () '(unsigned-byte 32))
 
+
+;;;
 ;;; Heap
+;;;
+
 
 (defconstant +heap-initial-size+ 8192)
 
+
+;;;
 ;;; Macros
+;;;
+
 
 (defmacro :reg (idx)         `(the u32 (aref %registers% ,idx)))
 (defmacro :op  (instruction) `(ldb (byte 4 28) ,instruction))
@@ -63,7 +75,11 @@ in `fetch-decode-execute'."
      (setf (gethash ,opcode *operators*)
            (list ',name '(progn ,@body)))))
 
+
+;;;
 ;;; Operators
+;;;
+
 
 (defop 0 CMOV (unless (= (:reg c) 0) (setf (:reg a) (:reg b))))
 
@@ -81,7 +97,9 @@ in `fetch-decode-execute'."
 
 (defop 6 NAND (setf (:reg a) (mod32 (lognand (:reg b) (:reg c)))))
 
-;; Special operators
+;;;
+;;; Special operators
+;;;
 
 (defop 7 HALT (setf flags 666))
 
@@ -124,7 +142,11 @@ in `fetch-decode-execute'."
   (setf (:reg (ldb (byte 3 25) inst))
         (ldb (byte 25 0) inst)))
 
+
+;;;
 ;;; Utility functions
+;;;
+
 
 (defun read-program (program-file)
   (with-open-file (stream program-file :element-type 'u8)
@@ -191,7 +213,10 @@ in `fetch-decode-execute'."
                         c (:c inst))
                   (assemble opc))))))
 
+;;;
 ;;; Main
+;;;
+
 
 (defun start (program-file)
   (declare (optimize
