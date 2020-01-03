@@ -8,4 +8,4 @@ UM spec: http://www.boundvariable.org/task.shtml
 This is free and unencumbered software released into the public domain.
 
 * Author
-xristos (AT) sdf (DOT) lonestar (DOT) org
+xristos (AT) sdf (DOT) org
