@@ -170,7 +170,7 @@ in `fetch-decode-execute'."
       array)))
 
 (defmacro assemble (opc)
-  "Create a dispatch table based on the operators we have defined with `defop'."
+  "Create a dispatch table based on the operators defined with `defop'."
   `(case ,opc
      ,@(loop
          :with values
@@ -196,7 +196,7 @@ in `fetch-decode-execute'."
               (type (simple-array u32 (*)) rom)
               (type (simple-array u32 (8)) %registers%)
               (type (simple-array (simple-array u32 1) 1) %heap%)
-              ;; try and stack allocate the registers array
+              ;; Try to stack allocate registers array
               (dynamic-extent %registers%))
      (setf (:mem 0) rom)
      ;; Interpreter loop
@@ -204,8 +204,7 @@ in `fetch-decode-execute'."
        (setf inst (aref rom pc)
              opc (:op inst)
              pc (mod32 (1+ pc)))
-       ;; We get some extra performance if we special-case/handle REGLOAD
-       ;; outside the main dispatch table.
+       ;; Special-case REGLOAD for some extra speed gain
        (if (= 13 opc)
            ,(second (gethash 13 *operators*))
            (progn (setf a (:a inst)
