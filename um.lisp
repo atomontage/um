@@ -1,8 +1,8 @@
-;;;; Universal Machine interpreter implemented in Common Lisp.
-;;;;
-;;;; Should work on any CL implementation, SBCL recommended.
+;;;; Universal Machine interpreter.
 ;;;;
 ;;;; UM spec: http://www.boundvariable.org/task.shtml
+;;;;
+;;;; Should work on any CL implementation.
 ;;;;
 ;;;; SBCL x86-64 (i7, 2GHz) benchmark:
 ;;;;
